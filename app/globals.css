@@ -24,13 +24,19 @@ body {
 
 @layer components {
   .card {
-    @apply bg-white rounded-xl border border-slate-200 shadow-soft;
+    @apply bg-white rounded-xl border border-slate-200/80 shadow-soft
+      transition-all duration-200 hover:shadow-md hover:border-slate-300;
+  }
+  /* Static surface — same enterprise spec but without the hover lift, for
+     large container panels that are not themselves interactive. */
+  .surface {
+    @apply bg-white rounded-xl border border-slate-200/80 shadow-soft;
   }
   .btn {
     @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors text-sm;
   }
   .btn-primary {
-    @apply btn bg-brand-600 text-white hover:bg-brand-700;
+    @apply btn bg-brand-900 text-white hover:bg-brand-800;
   }
   .btn-secondary {
     @apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50;
@@ -60,12 +66,11 @@ body {
   }
 }
 
-/* Subtle gradient utility */
+/* Clean enterprise canvas — flat clinical slate, no bright gradient blocks. */
 .bg-hero {
-  background:
-    radial-gradient(80% 60% at 20% 0%, #dbeafe 0%, transparent 60%),
-    radial-gradient(80% 60% at 100% 10%, #d1fae5 0%, transparent 60%),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(to bottom, #ffffff 0%, #f8fafc 220px);
 }
 
 .scrollbar-thin::-webkit-scrollbar {
