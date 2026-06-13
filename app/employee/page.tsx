@@ -9,7 +9,7 @@ import { StageTimeline } from "@/components/StageTimeline";
 import { Icon } from "@/components/Icons";
 import { KPICard } from "@/components/KPICard";
 import { aiNextChecklist } from "@/lib/ai";
-import { formatDate, daysUntil } from "@/lib/utils";
+import { formatDate, daysUntil, caseProgress } from "@/lib/utils";
 import { STAGES, TaskStatus } from "@/lib/types";
 
 export default function EmployeeDashboard() {
@@ -21,7 +21,7 @@ export default function EmployeeDashboard() {
 
   const tasks = data.tasks.filter((t) => t.assignedTo === emp.id);
   const done = tasks.filter((t) => t.status === "completed").length;
-  const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
+  const pct = caseProgress(emp, data.tasks);
   const blocked = tasks.filter((t) => t.status === "blocked").length;
   const inProgress = tasks.filter((t) => t.status === "in_progress").length;
   const upcoming = tasks

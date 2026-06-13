@@ -8,7 +8,7 @@ import { Avatar } from "@/components/Avatar";
 import { ProgressBar } from "@/components/ProgressBar";
 import { StatusBadge } from "@/components/StatusBadge";
 import { STAGES } from "@/lib/types";
-import { daysUntil, formatDate } from "@/lib/utils";
+import { daysUntil, formatDate, caseProgress } from "@/lib/utils";
 
 export default function HRDashboard() {
   const { data, hydrated } = useAppData();
@@ -120,9 +120,7 @@ export default function HRDashboard() {
             </thead>
             <tbody>
               {active.slice(0, 6).map((e) => {
-                const empTasks = data.tasks.filter((t) => t.assignedTo === e.id);
-                const done = empTasks.filter((t) => t.status === "completed").length;
-                const pct = empTasks.length ? Math.round((done / empTasks.length) * 100) : 0;
+                const pct = caseProgress(e, data.tasks);
                 return (
                   <tr key={e.id} className="border-b border-slate-100 hover:bg-slate-50/60">
                     <td className="py-3 pr-3">

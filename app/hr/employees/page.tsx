@@ -11,7 +11,7 @@ import { Icon } from "@/components/Icons";
 import { Modal } from "@/components/Modal";
 import { EmployeeForm } from "@/components/EmployeeForm";
 import { Employee, STAGES, STATUS_LABEL, TaskStatus } from "@/lib/types";
-import { formatDate } from "@/lib/utils";
+import { formatDate, caseProgress } from "@/lib/utils";
 import { employeesToCSV, downloadCSV } from "@/lib/csv";
 
 export default function EmployeesPage() {
@@ -48,10 +48,7 @@ function EmployeesContent() {
       if (country !== "all" && e.countryOfOrigin !== country) return false;
       if (query) {
         const q = query.toLowerCase();
-        const empTasks = data.tasks.filter((t) => t.assignedTo === e.id);
-        const total = empTasks.length;
-        const done = empTasks.filter((t) => t.status === "completed").length;
-        const pct = total ? Math.round((done / total) * 100) : 0;
+        const pct = caseProgress(e, data.tasks);
         if (
           !e.fullName.toLowerCase().includes(q) &&
           !e.role.toLowerCase().includes(q) &&
@@ -150,9 +147,7 @@ function EmployeesContent() {
             </thead>
             <tbody>
               {filtered.map((e) => {
-                const t = data.tasks.filter((x) => x.assignedTo === e.id);
-                const done = t.filter((x) => x.status === "completed").length;
-                const pct = t.length ? Math.round((done / t.length) * 100) : 0;
+                const pct = caseProgress(e, data.tasks);
                 return (
                   <tr key={e.id} className="border-b border-slate-100 hover:bg-slate-50/60">
                     <td className="px-4 py-3">

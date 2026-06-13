@@ -14,7 +14,7 @@ import { EmployeeForm } from "@/components/EmployeeForm";
 import { AIChat } from "@/components/AIChat";
 import { Icon } from "@/components/Icons";
 import { STAGES, STATUS_LABEL, TaskStatus, Note, DocumentItem } from "@/lib/types";
-import { formatDate, uid } from "@/lib/utils";
+import { formatDate, uid, caseProgress } from "@/lib/utils";
 import { aiHRSummary } from "@/lib/ai";
 
 export default function EmployeeDetailPage() {
@@ -43,7 +43,7 @@ export default function EmployeeDetailPage() {
   }
 
   const done = tasks.filter((t) => t.status === "completed").length;
-  const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
+  const pct = caseProgress(emp, data.tasks);
 
   const addNote = () => {
     if (!newNote.trim()) return;
