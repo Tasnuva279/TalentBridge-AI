@@ -1,4 +1,17 @@
 import Link from "next/link";
+import {
+  Compass,
+  BrainCircuit,
+  ClipboardCheck,
+  FolderClosed,
+  Globe2,
+  BarChart3,
+  TrendingUp,
+  AlertTriangle,
+  Check,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 export default function LandingPage() {
@@ -26,7 +39,7 @@ export default function LandingPage() {
           </div>
           <h1 className="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
             Onboard international talent into Germany —
-            <span className="bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent"> from offer to Anmeldung.</span>
+            <span className="text-brand-900"> from offer to Anmeldung.</span>
           </h1>
           <p className="mt-5 text-lg text-slate-600 max-w-xl">
             TalentBridge AI guides your international hires through visas, relocation,
@@ -36,7 +49,7 @@ export default function LandingPage() {
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link href="/login" className="btn-primary text-base px-5 py-3">
               Try the demo
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <ArrowRight size={18} strokeWidth={1.75} />
             </Link>
             <a href="#features" className="btn-secondary text-base px-5 py-3">See features</a>
           </div>
@@ -62,7 +75,7 @@ export default function LandingPage() {
             <div className="mt-5">
               <div className="text-xs text-slate-500 mb-1">Overall progress</div>
               <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
-                <div className="h-full w-[42%] bg-gradient-to-r from-brand-500 to-accent-500 rounded-full" />
+                <div className="h-full w-[42%] bg-brand-800 rounded-full" />
               </div>
               <div className="text-xs text-slate-500 mt-1">42% complete · 5 of 12 stages</div>
             </div>
@@ -74,9 +87,12 @@ export default function LandingPage() {
               <Step text="Anmeldung within 14 days of arrival" />
               <Step text="Open German bank account" />
             </ol>
-            <div className="mt-5 rounded-lg bg-gradient-to-r from-brand-50 to-accent-50 border border-brand-100 p-3 text-sm">
-              <div className="flex items-start gap-2">
-                <span className="text-brand-600 text-xs font-bold uppercase">AI tip</span>
+            <div className="mt-5 rounded-lg bg-slate-50 border border-slate-200 p-3 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded bg-brand-900 text-white">
+                  <Sparkles size={12} strokeWidth={2} />
+                </span>
+                <span className="text-brand-900 text-xs font-bold uppercase tracking-wide">AI tip</span>
               </div>
               <p className="mt-1 text-slate-700">
                 Book your Bürgeramt appointment now — Berlin slots release 14 days ahead and disappear fast.
@@ -87,12 +103,16 @@ export default function LandingPage() {
           <div className="hidden lg:block absolute -bottom-8 -left-10 w-56 card p-4">
             <div className="text-xs text-slate-500">Active cases</div>
             <div className="text-2xl font-bold mt-1">28</div>
-            <div className="text-xs text-accent-700 mt-1">▲ 4 this week</div>
+            <div className="text-xs text-accent-700 mt-1 inline-flex items-center gap-1">
+              <TrendingUp size={14} strokeWidth={1.75} /> 4 this week
+            </div>
           </div>
           <div className="hidden lg:block absolute -top-6 -right-6 w-60 card p-4">
             <div className="text-xs text-slate-500">Blocked tasks</div>
             <div className="text-2xl font-bold mt-1">3</div>
-            <div className="text-xs text-amber-700 mt-1">⚠ Action required</div>
+            <div className="text-xs text-amber-700 mt-1 inline-flex items-center gap-1">
+              <AlertTriangle size={14} strokeWidth={1.75} /> Action required
+            </div>
           </div>
         </div>
       </section>
@@ -109,12 +129,12 @@ export default function LandingPage() {
           </p>
         </div>
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <Feature title="Stage-based case tracking" body="Visa, Anmeldung, bank, insurance, onboarding — every case follows a clear, shared timeline." icon="🧭" />
-          <Feature title="AI bureaucracy translator" body="Paste any German letter and get a plain-English summary with deadlines highlighted." icon="🧠" />
-          <Feature title="Smart task assignment" body="Auto-assigns the right next step to either HR or the employee at each stage." icon="✅" />
-          <Feature title="Document center" body="One place for passports, contracts, Anmeldung, Steuer-ID, insurance — securely organised." icon="📁" />
-          <Feature title="Life in Germany guides" body="Daily German phrases, doctor booking tips, leisure ideas, and shopping guidance." icon="🌍" />
-          <Feature title="HR analytics & CSV export" body="Track delayed tasks, upcoming deadlines, and active cases — export anytime." icon="📊" />
+          <Feature title="Stage-based case tracking" body="Visa, Anmeldung, bank, insurance, onboarding — every case follows a clear, shared timeline." icon={<Compass size={20} strokeWidth={1.75} />} />
+          <Feature title="AI bureaucracy translator" body="Paste any German letter and get a plain-English summary with deadlines highlighted." icon={<BrainCircuit size={20} strokeWidth={1.75} />} />
+          <Feature title="Smart task assignment" body="Auto-assigns the right next step to either HR or the employee at each stage." icon={<ClipboardCheck size={20} strokeWidth={1.75} />} />
+          <Feature title="Document center" body="One place for passports, contracts, Anmeldung, Steuer-ID, insurance — securely organised." icon={<FolderClosed size={20} strokeWidth={1.75} />} />
+          <Feature title="Life in Germany guides" body="Daily German phrases, doctor booking tips, leisure ideas, and shopping guidance." icon={<Globe2 size={20} strokeWidth={1.75} />} />
+          <Feature title="HR analytics & CSV export" body="Track delayed tasks, upcoming deadlines, and active cases — export anytime." icon={<BarChart3 size={20} strokeWidth={1.75} />} />
         </div>
       </section>
 
@@ -145,10 +165,17 @@ export default function LandingPage() {
               SMEs, scaleups, and global HR teams hiring into Germany.
             </h2>
             <ul className="mt-5 space-y-3 text-slate-700">
-              <li className="flex gap-2"><span className="text-accent-600">●</span> IT, engineering, and product companies hiring globally</li>
-              <li className="flex gap-2"><span className="text-accent-600">●</span> Healthcare, logistics, and engineering firms importing skilled workers</li>
-              <li className="flex gap-2"><span className="text-accent-600">●</span> Talent acquisition & people-ops teams managing 5–500 international hires per year</li>
-              <li className="flex gap-2"><span className="text-accent-600">●</span> International employees moving to Germany for the first time</li>
+              {[
+                "IT, engineering, and product companies hiring globally",
+                "Healthcare, logistics, and engineering firms importing skilled workers",
+                "Talent acquisition & people-ops teams managing 5–500 international hires per year",
+                "International employees moving to Germany for the first time",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <Check size={18} strokeWidth={2} className="mt-0.5 shrink-0 text-accent-600" />
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -171,7 +198,7 @@ export default function LandingPage() {
                 <a href="#features" className="btn-secondary">Learn more</a>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-brand-600 to-accent-600 text-white p-10">
+            <div className="bg-brand-900 text-white p-10">
               <div className="text-sm uppercase tracking-wider opacity-80">Demo includes</div>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>• HR dashboard with 6 preloaded employee cases</li>
@@ -197,9 +224,7 @@ export default function LandingPage() {
 function Trust({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center gap-1.5">
-      <svg className="w-3.5 h-3.5 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Check size={14} strokeWidth={2.25} className="text-accent-600" />
       {label}
     </span>
   );
@@ -211,13 +236,13 @@ function Step({ text, done, active }: { text: string; done?: boolean; active?: b
       <span
         className={`w-5 h-5 rounded-full inline-flex items-center justify-center text-[11px] font-bold ${
           done
-            ? "bg-accent-500 text-white"
+            ? "bg-accent-600 text-white"
             : active
-              ? "bg-brand-600 text-white"
+              ? "bg-brand-800 text-white"
               : "bg-slate-200 text-slate-500"
         }`}
       >
-        {done ? "✓" : active ? "●" : ""}
+        {done ? <Check size={12} strokeWidth={2.5} /> : active ? <span className="w-1.5 h-1.5 rounded-full bg-white" /> : ""}
       </span>
       <span className={done ? "text-slate-500 line-through" : active ? "font-semibold text-slate-900" : "text-slate-700"}>
         {text}
@@ -226,10 +251,10 @@ function Step({ text, done, active }: { text: string; done?: boolean; active?: b
   );
 }
 
-function Feature({ title, body, icon }: { title: string; body: string; icon: string }) {
+function Feature({ title, body, icon }: { title: string; body: string; icon: React.ReactNode }) {
   return (
     <div className="card p-5">
-      <div className="w-10 h-10 rounded-lg bg-brand-50 text-xl inline-flex items-center justify-center">{icon}</div>
+      <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-500 inline-flex items-center justify-center">{icon}</div>
       <h3 className="mt-3 font-semibold text-slate-900">{title}</h3>
       <p className="mt-1 text-sm text-slate-600">{body}</p>
     </div>
@@ -239,7 +264,7 @@ function Feature({ title, body, icon }: { title: string; body: string; icon: str
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="card p-5">
-      <div className="text-2xl font-bold text-brand-700">{value}</div>
+      <div className="text-2xl font-bold text-brand-900">{value}</div>
       <div className="text-sm text-slate-600 mt-1">{label}</div>
     </div>
   );

@@ -1,6 +1,14 @@
 "use client";
 
 import { Icon } from "@/components/Icons";
+import {
+  Languages,
+  Briefcase,
+  Globe2,
+  Stethoscope,
+  ShoppingCart,
+  Flag,
+} from "lucide-react";
 
 const phrases = [
   { de: "Guten Morgen / Guten Tag / Guten Abend", en: "Good morning / good day / good evening" },
@@ -47,7 +55,7 @@ export default function LifePage() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5">
-        <Card title="Survival German — day-to-day" icon="🗣️">
+        <Card title="Survival German — day-to-day" icon={<Languages size={20} strokeWidth={1.75} />}>
           <ul className="space-y-2 text-sm">
             {phrases.map((p) => (
               <li key={p.de} className="flex flex-col rounded-lg border border-slate-200 p-2.5">
@@ -58,7 +66,7 @@ export default function LifePage() {
           </ul>
         </Card>
 
-        <Card title="Professional daily conversations" icon="💼">
+        <Card title="Professional daily conversations" icon={<Briefcase size={20} strokeWidth={1.75} />}>
           <ul className="space-y-2 text-sm">
             {work.map((p) => (
               <li key={p.de} className="flex flex-col rounded-lg border border-slate-200 p-2.5">
@@ -69,7 +77,7 @@ export default function LifePage() {
           </ul>
         </Card>
 
-        <Card title="Leisure & next vacation ideas" icon="🌍">
+        <Card title="Leisure & next vacation ideas" icon={<Globe2 size={20} strokeWidth={1.75} />}>
           <ul className="space-y-2 text-sm">
             {leisure.map((l) => (
               <li key={l.title} className="rounded-lg border border-slate-200 p-3">
@@ -80,7 +88,7 @@ export default function LifePage() {
           </ul>
         </Card>
 
-        <Card title="Health — booking a doctor" icon="🩺">
+        <Card title="Health — booking a doctor" icon={<Stethoscope size={20} strokeWidth={1.75} />}>
           <ul className="space-y-2 text-sm">
             {health.map((h) => (
               <li key={h.title} className="rounded-lg border border-slate-200 p-3">
@@ -94,7 +102,7 @@ export default function LifePage() {
           </button>
         </Card>
 
-        <Card title="Shopping guidance" icon="🛒">
+        <Card title="Shopping guidance" icon={<ShoppingCart size={20} strokeWidth={1.75} />}>
           <ul className="space-y-2 text-sm">
             {shopping.map((s) => (
               <li key={s.title} className="rounded-lg border border-slate-200 p-3">
@@ -105,7 +113,7 @@ export default function LifePage() {
           </ul>
         </Card>
 
-        <Card title="Quick German etiquette" icon="🇩🇪">
+        <Card title="Quick German etiquette" icon={<Flag size={20} strokeWidth={1.75} />}>
           <ul className="space-y-2 text-sm text-slate-700">
             <li>• Punctuality is a sign of respect — arrive 5 minutes early.</li>
             <li>• Recycling matters. Yellow bin = plastic/metal, blue = paper, brown = bio, black = residual.</li>
@@ -118,11 +126,11 @@ export default function LifePage() {
   );
 }
 
-function Card({ title, icon, children }: { title: string; icon: string; children: React.ReactNode }) {
+function Card({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="card p-5">
-      <h2 className="section-title mb-3 flex items-center gap-2">
-        <span className="w-8 h-8 rounded-lg bg-brand-50 inline-flex items-center justify-center text-lg">{icon}</span>
+      <h2 className="section-title mb-3 flex items-center gap-2.5">
+        <span className="w-9 h-9 rounded-lg bg-slate-100 text-slate-500 inline-flex items-center justify-center">{icon}</span>
         {title}
       </h2>
       {children}

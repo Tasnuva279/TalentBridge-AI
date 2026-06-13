@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Logo } from "./Logo";
+import { Icon } from "./Icons";
 import { classNames } from "@/lib/utils";
 
 export type NavItem = {
@@ -62,7 +63,7 @@ export function Sidebar({
                   : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               )}
             >
-              <span className={classNames("w-5 h-5", active ? "text-brand-600" : "text-slate-400")}>
+              <span className={classNames("shrink-0", active ? "text-brand-800" : "text-slate-500")}>
                 {it.icon}
               </span>
               {it.label}
@@ -72,10 +73,8 @@ export function Sidebar({
       </nav>
 
       <div className="p-3 border-t border-slate-100">
-        <button onClick={signOut} className="btn-ghost w-full justify-start">
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 12H3m0 0l4-4m-4 4l4 4M21 4v16" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <button onClick={signOut} className="btn-ghost w-full justify-start text-slate-500">
+          {Icon.SignOut}
           Sign out
         </button>
       </div>

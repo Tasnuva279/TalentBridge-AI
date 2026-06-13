@@ -264,7 +264,7 @@ export default function EmployeeDetailPage() {
       </Modal>
 
       <Modal open={showSummary} onClose={() => setShowSummary(false)} title="AI HR summary" width="max-w-2xl">
-        <div className="bg-gradient-to-br from-brand-50 to-accent-50 border border-brand-100 rounded-xl p-4 text-sm whitespace-pre-wrap">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm whitespace-pre-wrap">
           {aiHRSummary(emp, data.tasks)}
         </div>
         <div className="mt-4">

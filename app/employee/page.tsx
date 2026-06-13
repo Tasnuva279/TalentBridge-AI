@@ -34,7 +34,7 @@ export default function EmployeeDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="card p-5 bg-gradient-to-br from-brand-50 to-accent-50 border-brand-100">
+      <div className="surface p-5 border-l-4 border-l-brand-900">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <Avatar name={emp.fullName} color={emp.avatarColor} size={56} />
@@ -75,7 +75,7 @@ export default function EmployeeDashboard() {
             <Link href="/employee/tasks" className="text-sm text-brand-700 hover:underline">All tasks →</Link>
           </div>
           <div className="space-y-2">
-            {upcoming.length === 0 && <div className="text-sm muted">You're all caught up 🎉</div>}
+            {upcoming.length === 0 && <div className="text-sm muted">You&apos;re all caught up — nothing due right now.</div>}
             {upcoming.map((t) => (
               <div key={t.id} className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/60">
                 <input

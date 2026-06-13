@@ -1,5 +1,6 @@
 "use client";
 
+import { Check } from "lucide-react";
 import { STAGES, StageKey } from "@/lib/types";
 import { classNames } from "@/lib/utils";
 
@@ -35,10 +36,10 @@ export function StageTimeline({
                 <span
                   className={classNames(
                     "w-5 h-5 rounded-full text-[10px] font-bold inline-flex items-center justify-center",
-                    done ? "bg-accent-500 text-white" : active ? "bg-brand-600 text-white" : "bg-slate-200 text-slate-600",
+                    done ? "bg-accent-600 text-white" : active ? "bg-brand-800 text-white" : "bg-slate-200 text-slate-600",
                   )}
                 >
-                  {done ? "✓" : i + 1}
+                  {done ? <Check size={12} strokeWidth={2.5} /> : i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="text-sm font-semibold truncate">{s.label}</div>

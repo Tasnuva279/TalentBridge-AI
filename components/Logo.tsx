@@ -4,7 +4,7 @@ export function Logo({ href = "/", small = false }: { href?: string; small?: boo
   return (
     <Link href={href} className="inline-flex items-center gap-2 group">
       <span
-        className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-white shadow-sm"
+        className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-brand-900 text-white"
         aria-hidden
       >
         <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">

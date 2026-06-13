@@ -38,7 +38,7 @@ export default function HRDashboard() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">HR Overview</div>
-          <h1 className="text-2xl font-bold text-slate-900">Good day, Anna 👋</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Good day, Anna</h1>
           <p className="text-sm text-slate-600">Here's a snapshot of your international hiring pipeline.</p>
         </div>
         <div className="flex items-center gap-2">

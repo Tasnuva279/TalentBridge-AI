@@ -35,11 +35,14 @@ export default function HRSettingsPage() {
       </div>
 
       <div className="card p-5">
-        <h2 className="section-title mb-2">Demo data</h2>
+        <h2 className="section-title mb-3">Demo data</h2>
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <Metric label="Employees" value={data.employees.length} />
+          <Metric label="Tasks" value={data.tasks.length} />
+          <Metric label="Documents" value={data.documents.length} />
+        </div>
         <p className="text-sm text-slate-600 mb-3">
-          You have <strong>{data.employees.length}</strong> employees,{" "}
-          <strong>{data.tasks.length}</strong> tasks, and{" "}
-          <strong>{data.documents.length}</strong> documents stored locally in your browser.
+          All records are stored locally in your browser (localStorage). Resetting restores the original demo seed.
         </p>
         <div className="flex flex-wrap gap-2">
           <button
@@ -73,6 +76,15 @@ function Item({ label, value }: { label: string; value: string }) {
     <div className="p-3 rounded-lg border border-slate-200 bg-slate-50/40">
       <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">{label}</div>
       <div className="text-slate-900 font-medium mt-0.5">{value}</div>
+    </div>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-lg border border-slate-200/80 bg-slate-50/60 p-3">
+      <div className="text-2xl font-bold text-brand-900 tabular-nums">{value}</div>
+      <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-0.5">{label}</div>
     </div>
   );
 }
