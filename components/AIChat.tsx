@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { aiAnswer } from "@/lib/ai";
 import { Employee, Task } from "@/lib/types";
 import { Icon } from "./Icons";
+import { AI_DISCLAIMER, formatMarkdown, useTypewriter } from "./AIResponse";
 
-type Msg = { id: string; from: "user" | "ai"; text: string };
+type Msg = { id: string; from: "user" | "ai"; text: string; stream: boolean };
 
 const suggested = [
   "Explain Anmeldung step by step",
@@ -19,15 +20,19 @@ export function AIChat({
   context,
   intro,
   compact = false,
+  ask,
 }: {
   context?: { employee?: Employee; tasks?: Task[] };
   intro?: string;
   compact?: boolean;
+  // External trigger: bump `nonce` to push a prompt into the thread.
+  ask?: { text: string; nonce: number };
 }) {
   const [messages, setMessages] = useState<Msg[]>([
     {
       id: "intro",
       from: "ai",
+      stream: false,
       text:
         intro ??
         "Hi! I'm your TalentBridge assistant. I can explain German bureaucracy, translate letters, and suggest next steps. What would you like to know?",
@@ -41,9 +46,15 @@ export function AIChat({
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Send a prompt pushed in from an external rapid-action panel.
+  useEffect(() => {
+    if (ask && ask.nonce > 0) send(ask.text);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ask?.nonce]);
+
   const send = (text: string) => {
     if (!text.trim() || busy) return;
-    const u: Msg = { id: Math.random().toString(36).slice(2), from: "user", text };
+    const u: Msg = { id: Math.random().toString(36).slice(2), from: "user", text, stream: false };
     setMessages((m) => [...m, u]);
     setInput("");
     setBusy(true);
@@ -51,16 +62,16 @@ export function AIChat({
       const reply = aiAnswer(text, context);
       setMessages((m) => [
         ...m,
-        { id: Math.random().toString(36).slice(2), from: "ai", text: reply },
+        { id: Math.random().toString(36).slice(2), from: "ai", text: reply, stream: true },
       ]);
       setBusy(false);
-    }, 600);
+    }, 550);
   };
 
   return (
-    <div className={`flex flex-col ${compact ? "h-[420px]" : "h-[70vh]"} card overflow-hidden`}>
+    <div className={`flex flex-col ${compact ? "h-[420px]" : "h-[70vh]"} surface overflow-hidden`}>
       <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 text-white">
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-brand-900 text-white">
           {Icon.Sparkle}
         </span>
         <div>
@@ -70,22 +81,17 @@ export function AIChat({
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-thin p-4 space-y-3 bg-slate-50/40">
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`max-w-[85%] ${m.from === "user" ? "ml-auto" : ""}`}
-          >
-            <div
-              className={`rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap ${
-                m.from === "user"
-                  ? "bg-brand-600 text-white rounded-tr-sm"
-                  : "bg-white border border-slate-200 text-slate-800 rounded-tl-sm"
-              }`}
-            >
-              {formatMarkdown(m.text)}
+        {messages.map((m) =>
+          m.from === "user" ? (
+            <div key={m.id} className="max-w-[85%] ml-auto">
+              <div className="rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap bg-brand-900 text-white rounded-tr-sm">
+                {m.text}
+              </div>
             </div>
-          </div>
-        ))}
+          ) : (
+            <AIBubble key={m.id} text={m.text} stream={m.stream} onStream={() => endRef.current?.scrollIntoView()} />
+          )
+        )}
         {busy && (
           <div className="max-w-[60%]">
             <div className="rounded-2xl px-4 py-3 text-sm bg-white border border-slate-200 text-slate-500 inline-flex items-center gap-2">
@@ -134,30 +140,24 @@ export function AIChat({
   );
 }
 
-// Tiny markdown-ish formatter: **bold**, list items prefixed by - or numbers, and line breaks.
-function formatMarkdown(text: string) {
-  const lines = text.split("\n");
+function AIBubble({ text, stream, onStream }: { text: string; stream: boolean; onStream?: () => void }) {
+  const { out, done } = useTypewriter(text, stream);
+
+  useEffect(() => {
+    onStream?.();
+  }, [out, onStream]);
+
   return (
-    <>
-      {lines.map((line, i) => {
-        // bold
-        const parts = line.split(/(\*\*[^*]+\*\*)/g).map((p, j) => {
-          if (p.startsWith("**") && p.endsWith("**")) {
-            return (
-              <strong key={j} className="font-semibold">
-                {p.slice(2, -2)}
-              </strong>
-            );
-          }
-          return <span key={j}>{p}</span>;
-        });
-        return (
-          <span key={i} className="block">
-            {parts}
-            {line === "" && <br />}
-          </span>
-        );
-      })}
-    </>
+    <div className="max-w-[85%]">
+      <div className="rounded-2xl px-4 py-3 text-sm bg-white border border-slate-200 text-slate-800 rounded-tl-sm">
+        <div className="whitespace-pre-wrap">
+          {formatMarkdown(out)}
+          {!done && <span className="inline-block w-1.5 h-4 -mb-0.5 ml-0.5 bg-brand-700 animate-pulse" aria-hidden />}
+        </div>
+        <div className="mt-2.5 pt-2 border-t border-slate-100">
+          <p className="text-[10px] text-slate-400">{AI_DISCLAIMER}</p>
+        </div>
+      </div>
+    </div>
   );
 }

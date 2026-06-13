@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AIChat } from "@/components/AIChat";
+import { AIOutput } from "@/components/AIResponse";
 import { useAppData } from "@/lib/store";
 import { aiExplainLetter } from "@/lib/ai";
 import { Icon } from "@/components/Icons";
@@ -72,8 +73,8 @@ export default function EmployeeAssistantPage() {
               {Icon.Sparkle} Explain it
             </button>
             {explanation && (
-              <div className="mt-3 rounded-lg bg-slate-50 border border-slate-200 p-3 text-sm whitespace-pre-wrap">
-                {explanation}
+              <div className="mt-3">
+                <AIOutput key={explanation} text={explanation} />
               </div>
             )}
           </div>
